@@ -6,8 +6,8 @@ class User {
     created = Date
     enabled = Boolean
 
-    constructor(userId, username, password, email, created, enabled) {
-        this.userId = userId
+    constructor( username, password, email, created, enabled) {
+        // this.userId = userId
         this.username = username
         this.password = password
         this.email = email
