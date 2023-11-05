@@ -15,5 +15,6 @@ module.exports = {
         "Password": "8a73d6ab125a20",
         "protocol": "SMTP"
 
-    }
+    },
+    secret : "AnirudhSecretKey"
 }

@@ -6,6 +6,8 @@ const VerificationToken = require('../model/VerificationToken');
 const MailService = require('./MailService')
 const mailService = new MailService()
 const NotificationEmail = require('../model/NotificationEmail')
+const jwt = require('jsonwebtoken')
+const secret = require('../config/config').secret
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 const pool = require('../db/connection')
 const {createUser,getUserFromToken,addToken,enableUser , deleteToken} = require('../db/queries')
@@ -40,7 +42,11 @@ async verifyAccount(token) {
     ])
     return 'User Activated'
 }
-
+getLoginToken(loginForm) {
+    const token = jwt.sign({"username" : loginForm.username ,
+     "password" : loginForm.password},secret)
+    return token
+}
 }
 function generateVerificationToken(user) {
     const token = uuidv4().toString();
