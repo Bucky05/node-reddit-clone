@@ -2,7 +2,8 @@ const router = require('express').Router()
 
 router.post('/',createSubreddit)
 router.get('/',getAllSubreddit)
-const {saveSubredditFunction,getAll} = require('../service/SubredditService')
+router.get('/:subredditId',getSingleSubreddit)
+const {saveSubredditFunction,getAll,getSubreddit} = require('../service/SubredditService')
 async function createSubreddit(req,res) {
     const newSubreddit =  await saveSubredditFunction(req.body)
     res.status(201)
@@ -11,6 +12,10 @@ async function createSubreddit(req,res) {
 async function getAllSubreddit(req,res) {
     const list = await getAll()
     res.send(list)
+}
+async function getSingleSubreddit(req,res) {
+    const subreddit = await getSubreddit(req.params.subredditId)
+    res.send(subreddit)
 }
 
 module.exports = router

@@ -6,5 +6,7 @@ module.exports = {
     deleteToken : `DELETE FROM verification_token where email = ?`,
     getUserByUsername : 'Select * from user where username = ?',
     saveSubreddit : `INSERT INTO subreddit SET ?`,
-    getAllSubreddit : `SELECT * FROM subreddit`
+    getAllSubreddit : `SELECT * FROM subreddit`,
+    getSubreddit : `SELECT * FROM subreddit WHERE subreddit_id = ?`,
+    getSubredditByName : `SELECT * FROM subreddit WHERE subreddit_name = ?`
 }

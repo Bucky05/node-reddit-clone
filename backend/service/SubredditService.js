@@ -1,4 +1,4 @@
-const {saveSubreddit,getAllSubreddit} = require('../db/queries')
+const {saveSubreddit,getAllSubreddit, getSubreddit} = require('../db/queries')
 const pool = require('../db/connection')
 const SubredditDto = require('../dto/SubredditDto')
 const {v4 : uuidv4} = require('uuid')
@@ -17,5 +17,8 @@ module.exports  = {
     },
     getAll : async ()=> {
         return await pool.query(getAllSubreddit)
+    },
+    getSubreddit : async (id)=> {
+        return await pool.query(getSubreddit,id)
     }
 }
