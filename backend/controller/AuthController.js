@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const AuthService = require('../service/AuthService')
-const authService = new AuthService()
+const authService = require('../service/AuthService')
 const configureCreds = require('../config/securityConfig')
 router.post('/signup', signup)
 router.get('/accountVerification',verifyAccount)

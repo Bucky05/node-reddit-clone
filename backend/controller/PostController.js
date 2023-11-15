@@ -1,27 +1,37 @@
 const router = require('express').Router()
+const { getPostById } = require('../db/queries')
 const postService = require('../service/PostService')
 
 router.get('/by-user/:username',getPostByUsername)
 router.get('/by-subreddit/:subredditId')
+router.get('/',(req,res) => {
+    if(req.query.postId) 
+        getPost(req,res)
+    else   getAllPosts()
+})
 router.get('/',getAllPosts)
-router.get('/:postId',getPost)
+
 router.post('/',createPost)
 
 async function createPost(req,res) {
-    postService.save(req.body)
-    res.sendStatus(201)
+    const post = await postService.save(req.body)
+    res.send(post)
 }
 async function getPost(req,res) {
-    res.send(postService.getPost(req.boy.postId)) 
+    const post = await postService.getPost(req.query.postId)
+    res.status(200).send({post})
 }
 async function getAllPosts(req,res) {
-    res.send(postService.getAllPosts());
+    const posts= await postService.getAllPosts();
+    res.status(200).send([...posts]) 
 }
 async function getPostsBySubreddit(req,res) {
-    res.send(postService.getPostsBySubreddit(req.params.subredditId))
+    const post = await postService.getPostsBySubreddit(req.params.subredditId)
+    res.status(200).send({post})
 }
 async function getPostByUsername(req,res) {
-    res.send(postService.getPostByUsername(req.params.username))
+    const post = await postService.getPostByUsername(req.params.username)
+    res.status(200).send({post})
 }
 
 module.exports = router

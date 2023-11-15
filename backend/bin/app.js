@@ -4,13 +4,18 @@ const app = express()
 const authController = require('../controller/AuthController')
 const doFilterInternal = require('../config/JwtAuthenticationFilter')
 const subreddit = require('../controller/SubredditController')
-
+const post = require('../controller/PostController')
+const comment = require('../controller/CommentController')
+const vote = require('../controller/VoteController')
 //body will not be handled and not visible if below code is not done, in case of text use express.text()
 app.use(express.json())
 app.use('/api/auth', authController)
 app.use('/api',doFilterInternal)
 
 app.use('/api/subreddit',subreddit)
+app.use('/api/posts',post)
+app.use('/api/comment',comment)
+app.use('/api/vote')
 // listen on provided port on all network interfaces. this will only listen to http not https
 app.listen(port, () => {
     console.log(`Server is running on ${port}`)

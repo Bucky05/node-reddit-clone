@@ -1,4 +1,3 @@
-const VerificationTokenRepository = require('../model/VerificationToken')
 const RegisterRequest = require('../dto/RegisterRequest')
 const User = require('../model/User')
 const { v4: uuidv4 } = require('uuid');
@@ -12,7 +11,7 @@ const secret = require('../config/config').secret
 const pool = require('../db/connection')
 const {createUser,getUserFromToken,addToken,enableUser , deleteToken} = require('../db/queries')
 class AuthService {
-    verificationTokenRepository = VerificationTokenRepository
+    currentUser = ""
     async signup(registerRequest) {
         try {
         const user = new User()
@@ -30,8 +29,8 @@ class AuthService {
     catch(err) {
         console.error("Unable to add user. Error: ",err)
     }
-}
-async verifyAccount(token) {
+    }
+    async verifyAccount(token) {
     const user = await pool.query(getUserFromToken,token)
     if(user.length < 1 ) {
         return 'Token either invalid or expired'
@@ -40,13 +39,18 @@ async verifyAccount(token) {
         pool.query(enableUser,user[0].email),
         pool.query(deleteToken,user[0].email)
     ])
+    currentUser = user[0].username
     return 'User Activated'
-}
-getLoginToken(loginForm) {
-    const token = jwt.sign({"username" : loginForm.username ,
-     "password" : loginForm.password},secret)
-    return token
-}
+    }
+    getLoginToken(loginForm) {
+        const token = jwt.sign({"username" : loginForm.username ,
+        "password" : loginForm.password},secret)
+        this.currentUser = loginForm.username
+        return token
+    }
+    getCurrentUser() {
+        return this.currentUser
+    }
 }
 function generateVerificationToken(user) {
     const token = uuidv4().toString();
@@ -54,4 +58,4 @@ function generateVerificationToken(user) {
     return token
 }
 
-module.exports = AuthService
+module.exports = new AuthService()

@@ -21,7 +21,7 @@ module.exports =   async function doFilterInternal(req,res,next) {
         if(jwt.verify(token,config.secret)) {
             const user = jwt.decode(token,config.secret)
             if(configureCreds(user)) {
-                next()
+                                next()
             }
             else {
                 res.send({"message":"Authentication failed"})
@@ -30,6 +30,7 @@ module.exports =   async function doFilterInternal(req,res,next) {
         }
     }
     catch(err) {
+        res.send("Authentication Failed ")
         console.log("Authorization invalid ",err)
     }
         
