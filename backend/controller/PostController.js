@@ -7,7 +7,7 @@ router.get('/by-subreddit/:subredditId')
 router.get('/',(req,res) => {
     if(req.query.postId) 
         getPost(req,res)
-    else   getAllPosts()
+    else   getAllPosts(req,res)
 })
 router.get('/',getAllPosts)
 

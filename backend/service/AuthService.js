@@ -49,6 +49,8 @@ class AuthService {
         return token
     }
     getCurrentUser() {
+        if(this.currentUser === '')
+            throw 'Please Login First'
         return this.currentUser
     }
 }

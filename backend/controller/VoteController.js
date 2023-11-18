@@ -8,3 +8,5 @@ async function vote(req,res) {
     res.status(201).send('Vote Added') 
     
 }
+
+module.exports = router

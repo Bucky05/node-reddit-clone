@@ -15,7 +15,7 @@ app.use('/api',doFilterInternal)
 app.use('/api/subreddit',subreddit)
 app.use('/api/posts',post)
 app.use('/api/comment',comment)
-app.use('/api/vote')
+app.use('/api/vote',vote)
 // listen on provided port on all network interfaces. this will only listen to http not https
 app.listen(port, () => {
     console.log(`Server is running on ${port}`)

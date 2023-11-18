@@ -19,5 +19,10 @@ module.exports = {
     getEmailFromPost :`SELECT user.email, user.username , subquery.url, subquery.post_name FROM user INNER JOIN (SELECT * FROM posts WHERE post_id = ? ) AS subquery ON user.username = subquery.username;`,
     saveComment : `INSERT INTO comment SET ?`,
     getAllCommentsQuery : `SELECT * FROM comment where post_id = ?`,
-    getCommentsByUser :`SELECT * FROM comment where username = ?`
+    getCommentsByUser :`SELECT * FROM comment where username = ?`,
+    saveVote : `INSERT INTO vote SET ?`,
+    updateVoteCount : `UPDATE posts SET vote_count = ? where post_id = ?`,
+    getLastVoteOnPostByUser : `SELECT vote_type from vote where username = ? and entry_id = ?`,
+    updateVoteType : `UPDATE vote SET vote_type = ? where username = ? and entry_id = ?`
+
 }
