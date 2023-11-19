@@ -6,10 +6,11 @@ const MailService = require('./MailService')
 const mailService = new MailService()
 const NotificationEmail = require('../model/NotificationEmail')
 const jwt = require('jsonwebtoken')
-const secret = require('../config/config').secret
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+const {secret,expiresIn} = require('../config/config')
+const futureTime = require('./time').futureTime                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 const pool = require('../db/connection')
 const {createUser,getUserFromToken,addToken,enableUser , deleteToken} = require('../db/queries')
+const refreshToken = require('./RefreshTokenService')
 class AuthService {
     currentUser = ""
     async signup(registerRequest) {
@@ -42,21 +43,45 @@ class AuthService {
     currentUser = user[0].username
     return 'User Activated'
     }
-    getLoginToken(loginForm) {
+    async getLoginToken(loginForm) {
         const token = jwt.sign({"username" : loginForm.username ,
-        "password" : loginForm.password},secret)
+        "password" : loginForm.password},secret,{"expiresIn":expiresIn+"s"})
         this.currentUser = loginForm.username
-        return token
+        const rt = await refreshToken.generateRefreshToken()
+
+        return {"authenticationToken":token,
+                "refreshToken":rt.token,
+                "expiresAt" : futureTime(expiresIn),
+                "username" : this.createUser}
     }
     getCurrentUser() {
         if(this.currentUser === '')
             throw 'Please Login First'
         return this.currentUser
     }
+    async validateRefreshToken(req) {
+        try {
+        await refreshToken.validateRefreshToken(req.refreshToken)
+        const token = generateTokenWithUserName(req.username)
+        this.currentUser = req.username
+        return {"authenticationToken":token,
+        "refreshToken":req.refreshToken,
+        "expiresAt" : futureTime(expiresIn),
+        "username" : this.createUser}
+        }
+        catch {
+            return 'Invalid Refresh Token'
+        }
+        
+    }
 }
 function generateVerificationToken(user) {
     const token = uuidv4().toString();
     const verificationToken = new VerificationToken(token, user)
+    return token
+}
+function generateTokenWithUserName(username) {
+    const token = jwt.sign({"username" : username},secret,{"expiresIn":expiresIn+"s"})
     return token
 }
 

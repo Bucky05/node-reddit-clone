@@ -16,5 +16,6 @@ module.exports = {
         "protocol": "SMTP"
 
     },
-    secret : "AnirudhSecretKey"
+    secret : "AnirudhSecretKey",
+    expiresIn : 900
 }

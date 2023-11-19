@@ -40,5 +40,10 @@ module.exports = {
             duration = 'A FEW MOMENTS'+duration
         }
         return duration
+    },
+    futureTime : function (time) {
+        const currentTime = momentTZ().tz('Asia/Kolkata')
+        let futureTime = currentTime.add(time,'miliseconds').format('YYYY-MM-DD HH:MM:SS')
+        return futureTime
     }
 }

@@ -23,6 +23,9 @@ module.exports = {
     saveVote : `INSERT INTO vote SET ?`,
     updateVoteCount : `UPDATE posts SET vote_count = ? where post_id = ?`,
     getLastVoteOnPostByUser : `SELECT vote_type from vote where username = ? and entry_id = ?`,
-    updateVoteType : `UPDATE vote SET vote_type = ? where username = ? and entry_id = ?`
+    updateVoteType : `UPDATE vote SET vote_type = ? where username = ? and entry_id = ?`,
+    saveRefreshToken : `INSERT INTO refresh_token SET ?`,
+    getRefreshToken : `SELECT * FROM refresh_token WHERE token = ?`,
+    deleteRefreshToken : `DELETE FROM refresh_token WHERE token = ?`
 
 }
