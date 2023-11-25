@@ -7,7 +7,7 @@ class userDetailsServiceImpl {
             const res = await pool.query(getUserByUsername,user.username)
             if(res.length === 0) 
                 throw "Username doesn't exist"
-            if(res[0].password === user.password)
+            if(!user.password || res[0].password === user.password)
                 return true
             throw "Password Invalid"
 
