@@ -40,7 +40,7 @@ class AuthService {
         pool.query(enableUser,user[0].email),
         pool.query(deleteToken,user[0].email)
     ])
-    currentUser = user[0].username
+    this.currentUser = user[0].username
     return 'User Activated'
     }
     async getLoginToken(loginForm) {
@@ -52,7 +52,7 @@ class AuthService {
         return {"authenticationToken":token,
                 "refreshToken":rt.token,
                 "expiresAt" : futureTime(expiresIn),
-                "username" : this.createUser}
+                "username" : this.currentUser}
     }
     getCurrentUser() {
         if(this.currentUser === '')

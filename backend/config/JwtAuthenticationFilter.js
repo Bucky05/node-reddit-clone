@@ -37,5 +37,7 @@ module.exports =   async function doFilterInternal(req,res,next) {
     }
 
 function getJwtFromRequest(req) {
-        return req.headers["authorization"].substring(7)
+        if(req.headers["authorization"])
+            return req.headers["authorization"].substring(7)
+        return ''
     }

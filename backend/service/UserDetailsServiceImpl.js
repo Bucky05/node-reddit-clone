@@ -6,10 +6,15 @@ class userDetailsServiceImpl {
             //fetch user using username if not presnt throw error then check userpassword
             const res = await pool.query(getUserByUsername,user.username)
             if(res.length === 0) 
-                throw "Username doesn't exist"
-            if(!user.password || res[0].password === user.password)
+                return "Username doesn't exist"
+            if(!user.password || res[0].password === user.password) {
+                if(res[0].enabled === 0 ) {
+                    return "Please verify account"
+                }
                 return true
-            throw "Password Invalid"
+            }
+                
+            return "Password Invalid"
 
         }
         catch(err) {

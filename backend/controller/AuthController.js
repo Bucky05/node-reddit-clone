@@ -18,17 +18,22 @@ async function signup(req, res) {
     }
 }
 async function verifyAccount (req,res) {
-    const result = authService.verifyAccount(req.query.token)
+    const result = await authService.verifyAccount(req.query.token)
     res.status(200)
-    res.json({"message" : result})
+    res.send(result)
 }
 async function login (req,res) {
-    if(await configureCreds(req.body)) {
+    const credConf = await configureCreds(req.body)
+    console.log(credConf)
+        if(credConf === true) {
         //res.cookie("uid", authService.login(req.body))
-        res.send({"authenticationToken": await authService.getLoginToken(req.body)})
+        res.send( await authService.getLoginToken(req.body))
         //return res.send('Login Successful')
         //return res.redirect('/home')
-    }
+        }
+        else {
+            res.status(401).send(credConf)
+        }
 }
 async function validateRefreshToken(req,res) {
     const response =  await authService.validateRefreshToken(req.body)

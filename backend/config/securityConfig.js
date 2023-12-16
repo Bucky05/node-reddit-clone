@@ -1,8 +1,8 @@
 const  UserDetailsService = require('../service/UserDetailsServiceImpl')
 const userDetailsService = new UserDetailsService()
 
-const configureCreds = (form) => {
-    return  userDetailsService.loadByUsername(form)
+const configureCreds = async (form) => {
+    return  await userDetailsService.loadByUsername(form)
 }
 
 module.exports = configureCreds
