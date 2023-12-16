@@ -7,7 +7,7 @@ module.exports  = {
     saveSubredditFunction : async (subredditDto) => {
         try {
             const uuid = uuidv4()
-            const subreddit = new SubredditDto(uuid, subredditDto.name,subredditDto.description,0)
+            const subreddit = new SubredditDto(uuid, subredditDto.subreddit_name,subredditDto.description,0)
             await pool.query(saveSubreddit,subreddit)
             return subreddit
         }

@@ -1,6 +1,6 @@
 export class PostModel {
     id: number
-    postName : string
+    post_name : string
     url : string
     description : string
     vote_count : number
