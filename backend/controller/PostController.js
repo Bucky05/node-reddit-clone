@@ -1,4 +1,5 @@
-const router = require('express').Router()
+const 
+router = require('express').Router()
 const { getPostById } = require('../db/queries')
 const postService = require('../service/PostService')
 
@@ -9,7 +10,7 @@ router.get('/',(req,res) => {
         getPost(req,res)
     else   getAllPosts(req,res)
 })
-router.get('/',getAllPosts)
+//router.get('/',getAllPosts)
 
 router.post('/',createPost)
 
@@ -19,7 +20,7 @@ async function createPost(req,res) {
 }
 async function getPost(req,res) {
     const post = await postService.getPost(req.query.postId)
-    res.status(200).send({post})
+    res.status(200).send(post[0])
 }
 async function getAllPosts(req,res) {
     const posts= await postService.getAllPosts();

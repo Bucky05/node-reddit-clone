@@ -14,7 +14,7 @@ module.exports = {
         let voteCount = post[0].vote_count
         const lastVote = await pool.query(getLastVoteOnPostByUser,[currentUser,voteDto.entryId])
 
-        if(voteDto.voteType === 1) {
+        if(voteDto.voteType === 0) {
             voteCount++;
         }
         else   
@@ -23,7 +23,7 @@ module.exports = {
         if(lastVote.length > 0) {
             if(lastVote[0].vote_type == voteDto.voteType) {
                 let voted = 'DownVote'
-                if(voteDto.voteType === 1)
+                if(voteDto.voteType === 0)
                     voted = 'UpVote'
                 throw 'You have already '+voted+"'d for this post"
             }
@@ -36,9 +36,11 @@ module.exports = {
             await pool.query(saveVote,{"entry_id":voteDto.entryId,"username":currentUser,"vote_type":voteDto.voteType})
         
         await pool.query(updateVoteCount,[voteCount,voteDto.entryId])
+        return true
     }
     catch(err) {
-        console.log('Unable to add vote ',err)
+        return err
+        //console.log('Unable to add vote ',err)
     }
     }
 }

@@ -1,6 +1,6 @@
 export class CommentPayload {
     text: string
-    postId: number
+    postId: string
     username?: string
     duration?: string
 }

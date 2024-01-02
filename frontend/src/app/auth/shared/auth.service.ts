@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http'
 import { SignupRequestPayloadComponent } from '../signup/singup-request-payload';
 import {Observable, throwError} from 'rxjs'
@@ -10,6 +10,15 @@ import { catchError, map , tap} from 'rxjs/operators';
 })
 export class AuthService {
 
+
+  @Output() loggedIn : EventEmitter<boolean> = new EventEmitter()
+  @Output() username : EventEmitter<string> = new EventEmitter()
+
+
+  refreshTokenPayload = {
+    refreshToken : this.getRefreshToken(),
+    username : this.getUserName()
+  }
   constructor(private httpClient : HttpClient) { }
 
   signup(signupRequestPayload : SignupRequestPayloadComponent) : Observable<any> {
@@ -23,6 +32,9 @@ export class AuthService {
         window.localStorage.setItem('username', data.username);
         window.localStorage.setItem('refreshToken', data.refreshToken);
         window.localStorage.setItem('expiresAt', ""+data.expiresAt);
+
+        this.loggedIn.emit(true)
+        this.username.emit(data.username)
         return true;
       }),
       catchError((error : HttpErrorResponse)  => {
@@ -61,4 +73,20 @@ export class AuthService {
   getExpirationTime() {
     return window.localStorage.getItem('expiresAt');
   }
+
+  isLoggedIn(): boolean {
+    return this.getJwtToken() != null
+  }
+logout () {
+  this.httpClient.post('http://localhost:3500/api/auth/logout',this.refreshTokenPayload,
+  {responseType : 'text'}).subscribe(data => {
+    console.log(data)
+  }, error => {
+    throwError(error)
+  
+  })
+
+  window.localStorage.clear()
+
+}
 }

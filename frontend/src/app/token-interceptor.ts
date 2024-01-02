@@ -23,6 +23,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }
         const jwtToken = this.authService.getJwtToken();
 
+        if(jwtToken) {
         return next.handle(this.addToken(req, jwtToken)).pipe(catchError(error => {
             if (error instanceof HttpErrorResponse
                 && error.status === 403) {
@@ -31,6 +32,9 @@ export class TokenInterceptor implements HttpInterceptor {
                 return throwError(error);
             }
         }));
+    }
+
+    return next.handle(req)
     }
 
     private handleAuthErrors(req: HttpRequest<any>, next: HttpHandler)

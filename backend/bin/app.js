@@ -12,7 +12,15 @@ const cors = require('cors')
 app.use(express.json())
 app.use(cors())
 app.use('/api/auth', authController)
-app.use('/api',doFilterInternal)
+app.use('/api',(req,res,next) => {
+    if(!req.url.includes('/posts/') && !req.url.includes('/subreddit/')){
+        doFilterInternal(req,res,next)
+    }
+    else {
+        next()
+    }
+   
+})
 
 app.use('/api/subreddit',subreddit)
 app.use('/api/posts',post)

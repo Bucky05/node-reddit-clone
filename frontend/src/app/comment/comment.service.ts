@@ -10,11 +10,14 @@ export class CommentService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllCommentsForPost(postId: number) : Observable<CommentPayload[]> {
+  getAllCommentsForPost(postId: string) : Observable<CommentPayload[]> {
     return this.httpClient.get<CommentPayload[]>('http://localhost:3500/api/comments/by-post/'+postId)
   }
 
   postComment(commentPayload : CommentPayload) : Observable<any> {
     return this.httpClient.post<any>('http://localhost:3500/api/comments/',commentPayload)
+  }
+  getAllCommentsByUser(id : string) : Observable<CommentPayload[]> {
+    return this.httpClient.get<CommentPayload[]>('http://localhost:3500/api/comments/by-user/'+id)
   }
 }

@@ -14,7 +14,7 @@ import {CommentService} from '../../comment/comment.service'
 })
 export class ViewPostComponent implements OnInit {
 
-  postId: number;
+  postId: string;
   post: PostModel;
   commentForm : FormGroup
   commentPayload: CommentPayload

@@ -20,7 +20,7 @@ module.exports =   async function doFilterInternal(req,res,next) {
         const token = getJwtFromRequest(req)
         if(jwt.verify(token,config.secret)) {
             const user = jwt.decode(token,config.secret)
-            if(configureCreds(user)) {
+            if(await configureCreds(user)) {
                                 next()
             }
             else {

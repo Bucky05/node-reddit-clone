@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PostModel } from './PostModel';
 import { Observable } from 'rxjs';
@@ -18,7 +18,13 @@ export class PostService {
   createPost(postPayload : CreatePostPayload) : Observable<any> {
     return this.http.post('http://localhost:3500/api/posts', postPayload)
   }
-  getPost(postId : number) : Observable<any> {
-    return this.http.get('http:/localhost:3500/api/posts/' + postId)
+  getPost(postId : string) : Observable<any> {
+    const params = new HttpParams().set('postId', postId);
+    return this.http.get<PostModel>('http://localhost:3500/api/posts/' , {params})
   }
+
+  getAllPostsByUser(name : string) : Observable<PostModel[]> {
+    return this.http.get<PostModel[]>('http://localhost:3500/api/posts/by-user/'+name)
+  }
+ 
 }

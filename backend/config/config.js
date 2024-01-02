@@ -17,5 +17,5 @@ module.exports = {
 
     },
     secret : "AnirudhSecretKey",
-    expiresIn : 900
+    expiresIn : 9000
 }

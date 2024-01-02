@@ -8,12 +8,12 @@
         </div>
         <div class="col-md-11">
           <span>
-            <span class="subreddit-text"><a class="post-url" href="">{{post.subredditName}}</a></span>
+            <span class="subreddit-text"><a class="post-url" href="">{{post.subreddit_name}}</a></span>
             <span> . Posted
               <span> {{post.duration}} </span>
               by
-              <a *ngIf="post.userName === null" class="username" href="">Anonymous</a>
-              <a *ngIf="post.userName != null" class="username" href="">{{post.userName}}</a>
+              <a *ngIf="post.username === null" class="username" href="">Anonymous</a>
+              <a *ngIf="post.username != null" class="username" href="">{{post.username}}</a>
             </span>
           </span>
           <hr />
@@ -45,8 +45,8 @@
       </div>
     </div>
     <div class="col-md-3">
-      <app-side-bar></app-side-bar>
-      <app-sidebar-view-subreddit></app-sidebar-view-subreddit>
+      <app-side-bar></app-side-bar> 
+      <!-- <app-sidebar-view-subreddit></app-sidebar-view-subreddit> -->
     </div>
   </div>
 </div>
