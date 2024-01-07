@@ -28,7 +28,9 @@ export class HeaderComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authService.isLoggedIn()
+    this.authService.loggedIn.subscribe(value => {
+      this.isLoggedIn = value
+    })
     this.authService.username.subscribe((data:string) => this.username = data)
   }
 
@@ -39,8 +41,6 @@ export class HeaderComponent implements OnInit{
    this.authService.logout()
    this.isLoggedIn = false
    this.router.navigateByUrl('')
-
-    
   }
   getSignUp() {
     this.router.navigateByUrl('/sign-up')

@@ -30,7 +30,7 @@ module.exports =   async function doFilterInternal(req,res,next) {
         }
     }
     catch(err) {
-        res.send("Authentication Failed ")
+        res.status(403).send({text: "Authentication Failed "})
         console.log("Authorization invalid ",err)
     }
         

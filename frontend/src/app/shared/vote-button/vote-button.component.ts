@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/auth/shared/auth.service';
 import { PostService } from '../post.service';
 import { VotePayload } from './vote-payload';
 import { VoteType } from './vote-type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vote-button',
@@ -25,7 +26,8 @@ export class VoteButtonComponent implements OnInit {
   constructor(private voteService : VoteService,
     private authService : AuthService,
     private postService: PostService, 
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private router : Router) {
 
       this.votePayload = {
         voteType : undefined,
@@ -55,6 +57,9 @@ export class VoteButtonComponent implements OnInit {
     },
     error => {
       this.toastr.error(error.error.text)
+      if(error.status == 403) {
+        this.authService.logout()
+      }
       throw (error)
     })
   }
