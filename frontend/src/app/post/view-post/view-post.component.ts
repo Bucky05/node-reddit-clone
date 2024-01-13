@@ -6,6 +6,7 @@ import { throwError } from 'rxjs';
 import { CommentPayload } from 'src/app/comment/CommentPayload';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {CommentService} from '../../comment/comment.service'
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-post',
@@ -20,7 +21,7 @@ export class ViewPostComponent implements OnInit {
   commentPayload: CommentPayload
   comments : CommentPayload[]
 
-  constructor(private postService: PostService, private activateRoute: ActivatedRoute, private commentService: CommentService, private rouer: Router) {
+  constructor(private toastr: ToastrService, private postService: PostService, private activateRoute: ActivatedRoute, private commentService: CommentService, private rouer: Router) {
     this.postId = this.activateRoute.snapshot.params['id'];
     this.commentForm = new FormGroup({
       text : new FormControl('',Validators.required)
@@ -32,11 +33,14 @@ export class ViewPostComponent implements OnInit {
     this.postService.getPost(this.postId).subscribe(data => {
       this.post = data;
     }, error => {
+      this.toastr.error(error);
       throwError(error);
     });
   }
 
   ngOnInit(): void {
+    this.getPostById()
+    this.getCommentsForPost()
   }
 
   postComment() {
@@ -45,6 +49,7 @@ export class ViewPostComponent implements OnInit {
       this.commentForm.get('text').setValue('')
       this.getCommentsForPost()
     }, error => {
+      this.toastr.error(error.error.text);
       throwError(error)
     })
   }
@@ -52,7 +57,9 @@ export class ViewPostComponent implements OnInit {
   getCommentsForPost() {
     this.commentService.getAllCommentsForPost(this.postId).subscribe(data => {
       this.comments = data
-    })
+    }, error => {
+        throwError(error);
+      });
   }
   getPostById() {
     this.postService.getPost(this.postId).subscribe(data => {

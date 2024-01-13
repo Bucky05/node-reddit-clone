@@ -24,7 +24,7 @@ app.use('/api',(req,res,next) => {
 
 app.use('/api/subreddit',subreddit)
 app.use('/api/posts',post)
-app.use('/api/comment',comment)
+app.use('/api/comments',comment)
 app.use('/api/vote',vote)
 // listen on provided port on all network interfaces. this will only listen to http not https
 app.listen(port, () => {

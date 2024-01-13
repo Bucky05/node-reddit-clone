@@ -1,14 +1,17 @@
 const {getPost} = require('../service/PostService')
 const pool = require('../db/connection')
 const { v4: uuidv4 } = require('uuid')
+const authService = require('./AuthService')
 const {saveComment, getEmailFromPost,getAllCommentsQuery, getPostById, getUserByUsername,getCommentsByUser} = require('../db/queries')
 const MailService = require('./MailService')
 const mailService =  new MailService()
 const NotificationEmail = require('../model/NotificationEmail')
+const time = require('./time')
 
 module.exports = {
     async  save(comment) {
         try {
+            const mysqlFormattedDateTime = time.currentTime()
             const post = await getPost(comment.postId)
             if(post.length === 0) {
                 throw "Post doesn't exist"
@@ -16,7 +19,8 @@ module.exports = {
             comment.post_id = comment.postId
             delete comment.postId
             comment.comment_id = uuidv4().toString()
-
+            comment.username = authService.getCurrentUser()
+            comment.created_date = mysqlFormattedDateTime
             await pool.query(saveComment,comment)
             const user = await pool.query(getEmailFromPost,comment.post_id)
             mailService.sendMail(new NotificationEmail(user[0].email, comment.username +" Commented on your post ", comment.username + " posted a comment on your post. "+ user[0].url))

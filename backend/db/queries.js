@@ -10,7 +10,7 @@ module.exports = {
     getSubreddit : `SELECT * FROM subreddit WHERE subreddit_id = ?`,
     getSubredditByName : `SELECT * FROM subreddit WHERE subreddit_name = ?`,
     getPostById : `SELECT * FROM posts WHERE post_id = ?`,
-    getAllPostsQuery : `SELECT * FROM posts`,
+    getAllPostsQuery : `SELECT p.*, s.subreddit_name AS subreddit_name FROM posts p INNER JOIN subreddit s ON p.subreddit_id = s.subreddit_id`,
     savePost : `INSERT INTO posts SET ?`,
     getPostById : `SELECT * FROM posts WHERE post_id = ?`,
     getPostsByUsername : `SELECT * FROM posts WHERE username = ?`,
