@@ -59,6 +59,9 @@ class AuthService {
             throw 'Please Login First'
         return this.currentUser
     }
+    setCurrentUser(username) {
+        this.currentUser = username
+    }
     async validateRefreshToken(req) {
         try {
         await refreshToken.validateRefreshToken(req.refreshToken)

@@ -7,19 +7,14 @@ const subreddit = require('../controller/SubredditController')
 const post = require('../controller/PostController')
 const comment = require('../controller/CommentController')
 const vote = require('../controller/VoteController')
+const configureCreds = require('../config/securityConfig')
 const cors = require('cors')
 //body will not be handled and not visible if below code is not done, in case of text use express.text()
 app.use(express.json())
 app.use(cors())
 app.use('/api/auth', authController)
 app.use('/api',(req,res,next) => {
-    if(!req.url.includes('/posts/') && !req.url.includes('/subreddit/')){
-        doFilterInternal(req,res,next)
-    }
-    else {
-        next()
-    }
-   
+    doFilterInternal(req,res,next)
 })
 
 app.use('/api/subreddit',subreddit)
@@ -64,12 +59,5 @@ app.listen(port, () => {
 //   res.send('Handling POST request to /api/subreddit');
 // });
 
-// app.get('/api/auth', (req, res) => {
-//   // Handle GET request to /api/auth
-//   res.send('Handling GET request to /api/auth');
-// });
 
-// const port = process.env.PORT || 3000;
-// app.listen(port, () => {
-//   console.log(`Server is running on http://localhost:${port}`);
-// });
+

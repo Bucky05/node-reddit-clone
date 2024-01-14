@@ -1,4 +1,5 @@
 const {getUserByUsername} = require('../db/queries')
+const authService = require('../service/AuthService')
 const pool = require('../db/connection')
 class userDetailsServiceImpl {
     async loadByUsername(user) {
@@ -11,6 +12,7 @@ class userDetailsServiceImpl {
                 if(res[0].enabled === 0 ) {
                     return "Please verify account"
                 }
+                authService.setCurrentUser(user.username)
                 return true
             }
                 

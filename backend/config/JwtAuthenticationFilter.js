@@ -24,7 +24,12 @@ module.exports =   async function doFilterInternal(req,res,next) {
                                 next()
             }
             else {
+                if(!req.url.includes('/posts/') && !req.url.includes('/subreddit/')){
                 res.send({"message":"Authentication failed"})
+                }
+                else {
+                    next()
+                }
             }
 
         }

@@ -21,7 +21,9 @@ export class AuthService {
     refreshToken : this.getRefreshToken(),
     username : this.getUserName()
   }
-  constructor(private httpClient : HttpClient) { }
+  constructor(private httpClient : HttpClient) {
+    this.isLoggedIn()
+   }
 
   signup(signupRequestPayload : SignupRequestPayloadComponent) : Observable<any> {
     return this.httpClient.post('http://localhost:3500/api/auth/signup',signupRequestPayload , { responseType: 'text'})
