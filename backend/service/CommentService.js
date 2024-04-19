@@ -2,7 +2,7 @@ const {getPost} = require('../service/PostService')
 const pool = require('../db/connection')
 const { v4: uuidv4 } = require('uuid')
 const authService = require('./AuthService')
-const {saveComment, getEmailFromPost,getAllCommentsQuery, getPostById, getUserByUsername,getCommentsByUser} = require('../db/queries')
+const {saveComment, getEmailFromPost,getAllCommentsQuery,updateCommentid, getPostById, getUserByUsername,getCommentsByUser} = require('../db/queries')
 const MailService = require('./MailService')
 const mailService =  new MailService()
 const NotificationEmail = require('../model/NotificationEmail')
@@ -22,6 +22,7 @@ module.exports = {
             comment.username = authService.getCurrentUser()
             comment.created_date = mysqlFormattedDateTime
             await pool.query(saveComment,comment)
+            await pool.query(updateCommentid,[post[0].comment_count+1,comment.post_id])
             const user = await pool.query(getEmailFromPost,comment.post_id)
             mailService.sendMail(new NotificationEmail(user[0].email, comment.username +" Commented on your post ", comment.username + " posted a comment on your post. "+ user[0].url))
             return comment

@@ -14,6 +14,7 @@ module.exports = {
     savePost : `INSERT INTO posts SET ?`,
     getPostById : `SELECT * FROM posts WHERE post_id = ?`,
     getPostsByUsername : `SELECT * FROM posts WHERE username = ?`,
+    updateCommentid : `UPDATE posts SET comment_count = ? WHERE post_id = ?`,
     //change subreddit name to subreddit id 
     getPostsBySubreddit : `SELECT * FROM posts WHERE subreddit_id = ?`,
     getEmailFromPost :`SELECT user.email, user.username , subquery.url, subquery.post_name FROM user INNER JOIN (SELECT * FROM posts WHERE post_id = ? ) AS subquery ON user.username = subquery.username;`,
@@ -23,7 +24,7 @@ module.exports = {
     saveVote : `INSERT INTO vote SET ?`,
     updateVoteCount : `UPDATE posts SET vote_count = ? where post_id = ?`,
     getLastVoteOnPostByUser : `SELECT vote_type from vote where username = ? and entry_id = ?`,
-    updateVoteType : `UPDATE vote SET vote_type = ? where username = ? and entry_id = ?`,
+    deleteVote : `DELETE FROM  vote WHERE  username = ? and entry_id = ?`,
     saveRefreshToken : `INSERT INTO refresh_token SET ?`,
     getRefreshToken : `SELECT * FROM refresh_token WHERE token = ?`,
     deleteRefreshToken : `DELETE FROM refresh_token WHERE token = ?`

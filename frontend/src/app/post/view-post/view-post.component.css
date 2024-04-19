@@ -7,7 +7,9 @@
   .post-title:hover {
     opacity: 0.6;
   }
-  
+  .comment-margin{
+    margin-top: 3px;
+  }
   .subreddit-text {
     font-weight: bold;
   }

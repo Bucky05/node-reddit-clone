@@ -1,5 +1,5 @@
 const pool = require('../db/connection')
-const {saveVote,getPostById,getLastVoteOnPostByUser,updateVoteCount,updateVoteType} = require('../db/queries')
+const {saveVote,getPostById,getLastVoteOnPostByUser,updateVoteCount,deleteVote} = require('../db/queries')
 const User = require('../model/User')
 const authservice = require('./AuthService')
 
@@ -28,7 +28,8 @@ module.exports = {
                 throw 'You have already '+voted+"'d for this post"
             }
             else {
-                await pool.query(updateVoteType,[voteDto.voteType,currentUser,voteDto.entryId])
+                //remove last vote if last vote is different than current vote
+                await pool.query(deleteVote,[currentUser,voteDto.entryId])
             }
 
         }

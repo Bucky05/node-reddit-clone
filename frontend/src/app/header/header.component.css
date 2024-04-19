@@ -46,6 +46,9 @@ header{
     opacity: 0.6;
 }
 
+.float-right {
+    float: right;
+}
 .userdetails{    
     background-color: transparent;
     border-color: #0079D3;
