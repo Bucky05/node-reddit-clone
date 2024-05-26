@@ -1,7 +1,7 @@
 
 module.exports = {
     dbCredentials: {
-        host: "localhost",
+        host: "https://hpanel.hostinger.com/websites/anirudhrathore.com/databases/my-sql-databases",
         user: "u990099664_reddit_project",
         password:"root",
         port:"3306",

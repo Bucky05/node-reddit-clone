@@ -10,7 +10,7 @@ import { CreatePostPayload } from '../post/create-post/create-post.payload';
 export class PostService {
 
   constructor(private http : HttpClient) { }
-  baseUrl = "https://node-reddit-clone-b6rc.onrender.com/api"
+  baseUrl = "https://node-reddit-clone-b6rc.onrender.com:3500/api"
   getAllPosts() : Observable<Array<PostModel>> {
     return this.http.get<Array<PostModel>>(`${this.baseUrl}/posts/`)
   }

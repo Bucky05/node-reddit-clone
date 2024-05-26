@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CommentService {
 
-  baseUrl = "https://node-reddit-clone-b6rc.onrender.com/api"
+  baseUrl = "https://node-reddit-clone-b6rc.onrender.com:3500/api"
   constructor(private httpClient: HttpClient) { }
 
   getAllCommentsForPost(postId: string) : Observable<CommentPayload[]> {
