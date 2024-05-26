@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
 
-
+  baseUrl = "https://reddit.anirudhrathore.com/api"
   private isLoggedInSource  = new BehaviorSubject<boolean>(false);
   loggedIn = this.isLoggedInSource.asObservable()
   @Output() username : EventEmitter<string> = new EventEmitter()
@@ -26,11 +26,11 @@ export class AuthService {
    }
 
   signup(signupRequestPayload : SignupRequestPayloadComponent) : Observable<any> {
-    return this.httpClient.post('http://localhost:3500/api/auth/signup',signupRequestPayload , { responseType: 'text'})
+    return this.httpClient.post(`${this.baseUrl}/auth/signup',signupRequestPayload` , { responseType: 'text'})
   }
 
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean | string> {
-    return this.httpClient.post<LoginResponse>('http://localhost:3500/api/auth/login', loginRequestPayload)
+    return this.httpClient.post<LoginResponse>(`${this.baseUrl}/auth/login`, loginRequestPayload)
       .pipe(map(data => {
         window.localStorage.setItem('authenticationToken', data.authenticationToken);
         window.localStorage.setItem('username', data.username);
@@ -58,7 +58,7 @@ export class AuthService {
       username : this.getUserName()
     }
 
-    return this.httpClient.post<LoginResponse>('http://localhost:3500/api/auth/refresh/token',
+    return this.httpClient.post<LoginResponse>(`${this.baseUrl}/auth/refresh/token`,
     refreshTokenPayload)
       .pipe(tap(response => {
         window.localStorage.setItem('authenticationToken',response.authenticationToken)
@@ -87,7 +87,7 @@ export class AuthService {
      }
   }
 logout () {
-  this.httpClient.post('http://localhost:3500/api/auth/logout',this.refreshTokenPayload,
+  this.httpClient.post(`${this.baseUrl}/auth/logout`,this.refreshTokenPayload,
   {responseType : 'text'}).subscribe(data => {
     this.isLoggedInSource.next(false)
     console.log(data)

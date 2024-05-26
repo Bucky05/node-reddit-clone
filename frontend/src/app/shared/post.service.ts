@@ -10,21 +10,21 @@ import { CreatePostPayload } from '../post/create-post/create-post.payload';
 export class PostService {
 
   constructor(private http : HttpClient) { }
-
+  baseUrl = "https://reddit.anirudhrathore.com/api"
   getAllPosts() : Observable<Array<PostModel>> {
-    return this.http.get<Array<PostModel>>('http://localhost:3500/api/posts/')
+    return this.http.get<Array<PostModel>>(`${this.baseUrl}/posts/`)
   }
 
   createPost(postPayload : CreatePostPayload) : Observable<any> {
-    return this.http.post('http://localhost:3500/api/posts', postPayload)
+    return this.http.post(`${this.baseUrl}/posts`, postPayload)
   }
   getPost(postId : string) : Observable<any> {
     const params = new HttpParams().set('postId', postId);
-    return this.http.get<PostModel>('http://localhost:3500/api/posts/' , {params})
+    return this.http.get<PostModel>(`${this.baseUrl}/posts/` , {params})
   }
 
   getAllPostsByUser(name : string) : Observable<PostModel[]> {
-    return this.http.get<PostModel[]>('http://localhost:3500/api/posts/by-user/'+name)
+    return this.http.get<PostModel[]>(`${this.baseUrl}/posts/by-user/`+name)
   }
  
 }

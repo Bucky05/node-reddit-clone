@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 export class SubredditService {
 
   constructor(private http : HttpClient) { }
-
+  baseUrl = "https://reddit.anirudhrathore.com/api"
   getAllSubreddits(): Observable<Array<SubredditModel>> {
-    return this.http.get<Array<SubredditModel>>('http://localhost:3500/api/subreddit/')
+    return this.http.get<Array<SubredditModel>>(`${this.baseUrl}/subreddit/`)
   }
 
   createSubreddit(subredditModel: SubredditModel): Observable<SubredditModel> {
-    return this.http.post<SubredditModel>('http://localhost:3500/api/subreddit',
+    return this.http.post<SubredditModel>(`${this.baseUrl}/subreddit`,
       subredditModel);
   }
 }

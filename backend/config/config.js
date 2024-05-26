@@ -2,10 +2,10 @@
 module.exports = {
     dbCredentials: {
         host: "localhost",
-        user: "root",
+        user: "u990099664_reddit_project",
         password:"root",
         port:"3306",
-        database:"reddit-clone"
+        database:"myRedditproject@778"
     },
     port: 3500,
     smtp: {
@@ -17,5 +17,6 @@ module.exports = {
 
     },
     secret : "AnirudhSecretKey",
-    expiresIn : 9000
+    expiresIn : 9000,
+    backendHost:"https://"
 }
