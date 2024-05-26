@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class SubredditService {
 
   constructor(private http : HttpClient) { }
-  baseUrl = "https://reddit.anirudhrathore.com/api"
+  baseUrl = "https://node-reddit-clone-b6rc.onrender.com/api"
   getAllSubreddits(): Observable<Array<SubredditModel>> {
     return this.http.get<Array<SubredditModel>>(`${this.baseUrl}/subreddit/`)
   }

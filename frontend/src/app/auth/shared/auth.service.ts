@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AuthService {
 
-  baseUrl = "https://reddit.anirudhrathore.com/api"
+  baseUrl = "https://node-reddit-clone-b6rc.onrender.com/api"
   private isLoggedInSource  = new BehaviorSubject<boolean>(false);
   loggedIn = this.isLoggedInSource.asObservable()
   @Output() username : EventEmitter<string> = new EventEmitter()

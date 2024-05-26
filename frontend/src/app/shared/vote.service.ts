@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class VoteService {
 
   constructor(private http : HttpClient) { }
-  baseUrl = "https://reddit.anirudhrathore.com/api"
+  baseUrl = "https://node-reddit-clone-b6rc.onrender.com/api"
   
   vote(votePayload : VotePayload) : Observable<any> {
     return this.http.post(`${this.baseUrl}/vote/`,JSON.parse(JSON.stringify(votePayload)))
