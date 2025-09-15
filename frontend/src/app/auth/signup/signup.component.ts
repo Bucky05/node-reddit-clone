@@ -1,5 +1,5 @@
 import { Component , OnInit} from '@angular/core';
-import {FormGroup , FormControl,Validators} from '@angular/forms'
+import {FormGroup , FormControl,Validators, FormBuilder} from '@angular/forms'
 import { SignupRequestPayloadComponent } from './singup-request-payload';
 import { AuthService } from '../shared/auth.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,7 @@ export class SignupComponent implements OnInit {
 
   signUpForm: FormGroup;
   signupRequestPayload : SignupRequestPayloadComponent
-  constructor(private authService : AuthService, private router : Router, private toastr : ToastrService) {
+  constructor(private authService : AuthService, private router : Router, private toastr : ToastrService, private fb : FormBuilder) {
     this.signupRequestPayload = {
       email: '',
       username: '',
@@ -22,11 +22,11 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.signUpForm = new FormGroup( {
-      username : new FormControl('',Validators.required),
-      password : new FormControl('',Validators.required),
-      email : new FormControl('',[Validators.required , Validators.email])
-  })
+   this.signUpForm = this.fb.group({
+  email: ['', [Validators.required, Validators.email]],
+  password: ['', [Validators.required, Validators.minLength(6)]]
+})
+
   }
 
   signup() {

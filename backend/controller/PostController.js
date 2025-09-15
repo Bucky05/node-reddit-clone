@@ -1,38 +1,59 @@
-const 
-router = require('express').Router()
-const { getPostById } = require('../db/queries')
+// controller/PostController.js
+const express = require('express')
+const router = express.Router()
 const postService = require('../service/PostService')
 
-router.get('/by-user/:username',getPostByUsername)
-router.get('/by-subreddit/:subredditId')
-router.get('/',(req,res) => {
-    if(req.query.postId) 
-        getPost(req,res)
-    else   getAllPosts(req,res)
-})
-//router.get('/',getAllPosts)
+// Routes
+router.get('/', getAllPosts)
+router.get('/by-user/:username', getPostByUsername)
+router.get('/by-subreddit/:subredditId', getPostsBySubreddit)
+router.get('/:postId', getPost) // optional: single post by id
+router.post('/', createPost)
 
-router.post('/',createPost)
+async function getAllPosts(req, res, next) {
+  try {
+    const posts = await postService.getAllPosts()
+    res.status(200).json(posts)
+  } catch (err) {
+    next(err)
+  }
+}
 
-async function createPost(req,res) {
-    const post = await postService.save(req.body)
-    res.send(post)
+async function getPostsBySubreddit(req, res, next) {
+  try {
+    const posts = await postService.getPostsBySubreddit(req.params.subredditId)
+    res.status(200).json(posts)
+  } catch (err) {
+    next(err)
+  }
 }
-async function getPost(req,res) {
-    const post = await postService.getPost(req.query.postId)
-    res.status(200).send(post[0])
+
+async function getPostByUsername(req, res, next) {
+  try {
+    const posts = await postService.getPostByUsername(req.params.username)
+    res.status(200).json(posts)
+  } catch (err) {
+    next(err)
+  }
 }
-async function getAllPosts(req,res) {
-    const posts= await postService.getAllPosts();
-    res.status(200).send([...posts]) 
+
+async function getPost(req, res, next) {
+  try {
+    const post = await postService.getPostById(req.params.postId)
+    if (!post) return res.status(404).json({ message: 'Post not found' })
+    res.status(200).json(post)
+  } catch (err) {
+    next(err)
+  }
 }
-async function getPostsBySubreddit(req,res) {
-    const post = await postService.getPostsBySubreddit(req.params.subredditId)
-    res.status(200).send({post})
-}
-async function getPostByUsername(req,res) {
-    const post = await postService.getPostByUsername(req.params.username)
-    res.status(200).send({post})
+
+async function createPost(req, res, next) {
+  try {
+    const created = await postService.createPost(req.body)
+    res.status(201).json(created)
+  } catch (err) {
+    next(err)
+  }
 }
 
 module.exports = router

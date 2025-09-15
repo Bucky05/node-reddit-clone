@@ -1,46 +1,77 @@
-<div class="container">
-    <div class="row">
-      <hr />
-      <div class="create-post-container col-md-9">
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="create-post-card shadow-sm">
         <form class="post-form" [formGroup]="createPostForm" (ngSubmit)="createPost()">
-          <div class="form-group">
-            <div class="create-post-heading">Create Post</div>
-            <hr />
-            <input type="text" [formControlName]="'post_name'" class="form-control" style="margin-top: 5px"
-              placeholder="Title">
-  
-            <input type="text" class="form-control" [formControlName]="'url'" style="margin-top: 5px" placeholder="URL">
-  
-            <select class="form-control" style="margin-top: 10px" [formControlName]="'subreddit_name'">
-              <option value="" selected disabled>Select Subreddit</option>
-              <option *ngFor="let subreddit of subreddits">{{subreddit.subreddit_name}}</option>
+          <!-- Heading -->
+          <div class="create-post-heading">Create a New Post</div>
+          <hr />
+
+          <!-- Title -->
+          <div class="form-group mb-3">
+            <input
+              type="text"
+              formControlName="post_name"
+              class="form-control"
+              placeholder="Post title"
+            />
+          </div>
+
+          <!-- URL -->
+          <div class="form-group mb-3">
+            <input
+              type="text"
+              formControlName="url"
+              class="form-control"
+              placeholder="Optional URL"
+            />
+          </div>
+
+          <!-- Subreddit dropdown -->
+          <div class="form-group mb-3">
+            <select class="form-control" formControlName="subreddit_name">
+              <option value="" selected disabled>Select a Subreddit</option>
+              <option *ngFor="let subreddit of subreddits">
+                {{ subreddit.subreddit_name }}
+              </option>
             </select>
-  
-            <editor style ="margin-top:10px" apiKey="qxbsmpgq9tu43eieotg0ehgcwmar1rb9fio00hzr5h0g75ar" [formControlName]="'description'" [init]="{
-                        height: 500,
-                        menubar: false,
-                        plugins: [
-                          'advlist autolink lists link image charmap print preview anchor',
-                          'searchreplace visualblocks code fullscreen',
-                          'insertdatetime media table paste code help wordcount'
-                        ],
-                        toolbar:
-                          'undo redo | formatselect | bold italic backcolor | \
-                          alignleft aligncenter alignright alignjustify | \
-                          bullist numlist outdent indent | removeformat | help'
-                      }"></editor>
-            <span>
-              <div style="margin-top: 5px" class="float-right">
-                <button (click)="discardPost()" class="btnDiscard">Discard</button>
-                <button type = "submit" class="btnCreatePost">Post</button>
-              </div>
-            </span>
+          </div>
+
+          <!-- Description editor -->
+          <div class="form-group mb-3">
+            <editor
+              apiKey="qxbsmpgq9tu43eieotg0ehgcwmar1rb9fio00hzr5h0g75ar"
+              formControlName="description"
+              [init]="{
+                height: 300,
+                menubar: false,
+                plugins: [
+                  'advlist autolink lists link image charmap preview anchor',
+                  'searchreplace visualblocks code fullscreen',
+                  'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar:
+                  'undo redo | formatselect | bold italic backcolor | \
+                  alignleft aligncenter alignright alignjustify | \
+                  bullist numlist outdent indent | removeformat | help'
+              }"
+            ></editor>
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-flex justify-content-end gap-2 mt-3">
+            <button type="button" (click)="discardPost()" class="btnDiscard">
+              Discard
+            </button>
+            <button type="submit" class="btnCreatePost">Post</button>
           </div>
         </form>
       </div>
-      <div class="col-md-3">
-        <!-- <guidelines></guidelines>
-        <about></about> -->
-      </div>
+    </div>
+
+    <!-- Sidebar placeholder -->
+    <div class="col-md-3">
+      <!-- future sidebar widgets -->
     </div>
   </div>
+</div>

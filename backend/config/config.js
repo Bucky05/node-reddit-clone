@@ -1,21 +1,20 @@
+require('dotenv').config()
 
 module.exports = {
-    dbCredentials: {
-        host: "localhost",
-        user: "root",
-        password:"root",
-        port:"3306",
-        database:"reddit-clone"
-    },
-    port: 3500,
-    smtp: {
-        "Host": "sandbox.smtp.mailtrap.io",
-        "Port": 2525,
-        "Username": "0d27120261ca61",
-        "Password": "8a73d6ab125a20",
-        "protocol": "SMTP"
-
-    },
-    secret : "AnirudhSecretKey",
-    expiresIn : 9000
+  dbCredentials: {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
+  },
+  port: process.env.PORT || 3500,
+  smtp: {
+    Host: process.env.SMTP_HOST,
+    Port: process.env.SMTP_PORT,
+    Username: process.env.SMTP_USER,
+    Password: process.env.SMTP_PASS,
+    protocol: 'SMTP'
+  },
+  secret: process.env.JWT_SECRET,
+  expiresIn: process.env.JWT_EXPIRES_IN || 9000
 }

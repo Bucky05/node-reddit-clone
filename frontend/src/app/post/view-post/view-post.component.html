@@ -1,52 +1,71 @@
-<div class="container">
+<div class="container mt-4">
   <div class="row">
-    <hr />
     <div class="col-md-9">
-      <div class="row post">
-        <div class="col-md-1">
+      <div class="post-card shadow-sm">
+        <!-- Left vote section -->
+        <div class="vote-section">
           <app-vote-button [post]="post"></app-vote-button>
         </div>
-        <div class="col-md-11">
-          <span>
-            <span class="subreddit-text"><a class="post-url" href="">{{post.subreddit_name}}</a></span>
-            <span> . Posted
-              <span> {{post.duration}} </span>
-              by
-              <a *ngIf="post.username === null" class="username" href="">Anonymous</a>
-              <a *ngIf="post.username != null" class="username" href="">{{post.username}}</a>
+
+        <!-- Main content -->
+        <div class="post-body">
+          <div class="post-meta">
+            <span class="subreddit">
+              <a class="post-url" href="">{{ post.subreddit_name }}</a>
             </span>
-          </span>
-          <hr />
-          <a routerLink="post.url" class="post-title">{{post.post_name}}</a>
-          <div>
-            <p class="post-text" [innerHtml]="post.description"></p>
+            <span class="dot">•</span>
+            <span class="time">Posted {{ post.duration }} ago</span>
+            <span class="dot">•</span>
+            <span>
+              by
+              <a *ngIf="post.username; else anon" class="username" href="">
+                {{ post.username }}
+              </a>
+              <ng-template #anon>
+                <span class="username">Anonymous</span>
+              </ng-template>
+            </span>
           </div>
-          <div class="post-comment">
+
+          <h2 class="post-title">{{ post.post_name }}</h2>
+          <p class="post-text" [innerHtml]="post.description"></p>
+
+          <!-- Comment form -->
+          <div class="comment-form mt-3">
             <form [formGroup]="commentForm" (ngSubmit)="postComment()">
-              <div class="form-group">
-                <textarea class="form-control" [formControlName]="'text'" placeholder="Your Thoughts?"></textarea>
-              </div>
-              <button type="submit" class="login comment-margin float-right">Comment</button>
+              <textarea
+                class="form-control"
+                rows="3"
+                formControlName="text"
+                placeholder="Write a comment..."
+              ></textarea>
+              <button type="submit" class="btn btn-primary btn-sm float-end mt-2">
+                Comment
+              </button>
             </form>
           </div>
-          <div style="margin-top: 60px;" *ngFor="let comment of comments">
-            <div class="comment">
-              <div class="username">
-                <a routerLink="/user/comment.username">{{comment.username}}</a>
+
+          <!-- Comments list -->
+          <div class="comments-list mt-4" *ngIf="comments?.length > 0">
+            <h5 class="mb-3">{{ comments.length }} Comments</h5>
+            <div *ngFor="let comment of comments" class="comment-item">
+              <div class="comment-header">
+                <a routerLink="/user/{{ comment.username }}" class="comment-username">
+                  {{ comment.username }}
+                </a>
+                <span class="comment-time">• {{ comment.duration }}</span>
               </div>
-              <div>
-                <p>{{comment.duration}}</p>
-              </div>
-              <b>{{comment.text}}</b>
+              <p class="comment-text">{{ comment.text }}</p>
             </div>
-            <hr />
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Sidebar -->
     <div class="col-md-3">
-      <app-side-bar></app-side-bar> 
-       <app-subreddit-side-bar></app-subreddit-side-bar> 
+      <app-side-bar></app-side-bar>
+      <app-subreddit-side-bar></app-subreddit-side-bar>
     </div>
   </div>
 </div>

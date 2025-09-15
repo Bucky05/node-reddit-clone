@@ -1,77 +1,62 @@
-.btnCreatePost,
-.btnCreateSubreddit {
-  margin-top: 5px;
+/* Card container */
+.create-post-card {
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #e6e6e6;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
-.post-form {
-  margin: 2px;
-}
-
-.comment-notification {
-  margin-top: 5px;
-}
-
-.create-post-container {
-  margin-top: 10px;
-  --post-line-color: #ccc;
-  border: 1px solid #ccc;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #878A8C;
-  position: relative;
-  border-radius: 4px;
-  padding: 5px;
-}
-
-.btnDiscard {
-    fill: #0079D3;
-    border: 1px solid;
-    border-radius: 4px;
-    text-align: center;
-    letter-spacing: 1px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    line-height: 24px;
-    text-transform: uppercase;
-    padding: 3px 16px;
-    opacity: 1;
-    width: 288px;
-    height: 34px;
-    margin-top: 5px;
-    color: #0079D3;
-    background-color: transparent;
-  }
-
+/* Heading */
 .create-post-heading {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 22px;
+  font-size: 20px;
+  font-weight: 600;
   color: #1c1c1c;
-  -ms-flex: 1;
-  flex: 1;
+  margin-bottom: 10px;
+}
+
+/* Form inputs */
+.form-control {
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 8px 10px;
+}
+
+/* Buttons */
+.btnDiscard {
+  border: 1px solid #0079d3;
+  background: transparent;
+  color: #0079d3;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+  padding: 6px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btnDiscard:hover {
+  background: #f0f8ff;
 }
 
 .btnCreatePost {
-    background-color: #0079D3;
-    border-color: #0079D3;
-    color: aliceblue;
-    fill: #0079D3;
-    border: 1px solid;
-    border-radius: 4px;
-    text-align: center;
-    letter-spacing: 1px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    line-height: 24px;
-    text-transform: uppercase;
-    padding: 3px 16px;
-    opacity: 1;
-    width: 288px;
-    height: 34px;
-  }
+  background-color: #0079d3;
+  border: 1px solid #0079d3;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 13px;
+  padding: 6px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btnCreatePost:hover {
+  background-color: #005fa3;
+  border-color: #005fa3;
+}
+
+/* Layout helpers */
+.gap-2 > * + * {
+  margin-left: 10px;
+}

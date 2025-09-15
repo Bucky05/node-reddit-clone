@@ -1,4 +1,5 @@
 const express = require('express')
+const { body, validationResult } = require('express-validator')
 const router = express.Router()
 const authService = require('../service/AuthService')
 const configureCreds = require('../config/securityConfig')
@@ -8,32 +9,27 @@ router.get('/accountVerification',verifyAccount)
 router.post('/login',login)
 router.post('/refresh/token',validateRefreshToken)
 router.post('/logout',logout)
-async function signup(req, res) {
-    try {
-        authService.signup(req.body)
-        res.sendStatus(200, "User Registration Successful")
-    }
-    catch (er) {
-        console.log(er)
-    }
+async function signup(req, res, next) {
+  try {
+    await authService.signup(req.body)
+    return res.status(201).json({ message: 'User registration successful' })
+  } catch (err) {
+    next(err)
+  }
 }
+
 async function verifyAccount (req,res) {
     const result = await authService.verifyAccount(req.query.token)
     res.status(200)
     res.send(result)
 }
-async function login (req,res) {
-    const credConf = await configureCreds(req.body)
-    console.log(credConf)
-        if(credConf === true) {
-        //res.cookie("uid", authService.login(req.body))
-        res.send( await authService.getLoginToken(req.body))
-        //return res.send('Login Successful')
-        //return res.redirect('/home')
-        }
-        else {
-            res.status(401).send(credConf)
-        }
+async function login(req, res, next) {
+  try {
+    const token = await authService.login(req.body)
+    return res.status(200).json(token)
+  } catch (err) {
+    next(err)
+  }
 }
 async function validateRefreshToken(req,res) {
     const response =  await authService.validateRefreshToken(req.body)

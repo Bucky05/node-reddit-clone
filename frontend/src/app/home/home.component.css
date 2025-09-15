@@ -1,0 +1,41 @@
+.reddit-body {
+  margin-top: 70px; /* space below navbar */
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #1c1c1c;
+  border-bottom: 2px solid #0079D3;
+  padding-bottom: 5px;
+}
+
+/* Posts Feed */
+.posts-section {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
+}
+
+/* Sidebar */
+.sidebar-section {
+  margin-top: 15px;
+}
+
+.sidebar-section app-side-bar,
+.sidebar-section app-subreddit-side-bar {
+  display: block;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  padding: 12px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
+}

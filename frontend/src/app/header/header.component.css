@@ -1,100 +1,89 @@
-header{
-    border-radius: 1px solid;
-}
-.reddit-icon-svg{
-    height: 50px;
-    padding: 8px 8px 8px 0;
-    width: 50px;
-}
-
-.reddit-text{        
-    font-weight: 700;
-    height: 50px;
-    width: 50px;    
-}
-.logo{
-    text-decoration: none;
+/* Navbar */
+.navbar {
+  padding: 8px 20px;
+  border-bottom: 1px solid #e6e6e6;
+  background-color: #fff !important;
+  z-index: 1000;
 }
 
-.login, .sign-up{    
-    background-color: transparent;
-    border-color: #0079D3;
-    color: #0079D3;
-    fill: #0079D3;
-    border: 1px solid;
-    border-radius: 4px;
-    box-sizing: border-box;
-    text-align: center;
-    letter-spacing: 1px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    line-height: 24px;
-    text-transform: uppercase;
-    padding: 3px 16px;
-    opacity: 1;  
+/* Logo */
+.reddit-icon-svg {
+  height: 38px;
+  width: 38px;
+}
+.reddit-text {
+  font-weight: 700;
+  font-size: 16px;
+  color: #222;
+}
+.logo {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 
-.sign-up{
-    background-color: #0079D3;
-    border-color: #0079D3;
-    color: aliceblue;
+/* Auth buttons */
+.btn-auth {
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 16px;
+  text-transform: uppercase;
+  transition: 0.2s;
+  border: 1px solid #0079d3;
+}
+.btn-login {
+  background: transparent;
+  color: #0079d3;
+}
+.btn-login:hover {
+  background: #f0f8ff;
+}
+.btn-signup {
+  background: #0079d3;
+  color: #fff;
+}
+.btn-signup:hover {
+  background: #005fa3;
+  border-color: #005fa3;
 }
 
-.sign-up:hover{
-    opacity: 0.6;
+/* User dropdown */
+.userdetails {
+  background: transparent;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.userdetails:hover {
+  border-color: #0079d3;
+}
+.account-icon {
+  border-radius: 50%;
+  margin-right: 6px;
+  max-height: 24px;
+  max-width: 24px;
+  vertical-align: middle;
 }
 
-.float-right {
-    float: right;
+/* Dropdown */
+.dropdown-menu {
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  padding: 5px 0;
 }
-.userdetails{    
-    background-color: transparent;
-    border-color: #0079D3;
-    color: #0079D3;
-    fill: #0079D3;
-    border: 1px solid;
-    border-radius: 4px;
-    box-sizing: border-box;
-    text-align: center;
-    letter-spacing: 1px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .5px;
-    line-height: 24px;
-    text-transform: uppercase;
-    padding: 3px 16px;
-    opacity: 1;
-    border: 0px;
+.dropdown-item {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  color: #333;
 }
-
-.userdetails:hover{
-    border: 1px solid;
-}
-
-.dropdown-item{
-    background-color: #f8f9fa;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 18px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.dropdown-item:hover{
-    background-color: #0079D3;
-}
-
-.dropdown-menu{
-    background-color: #f8f9fa;
-}
-
-.account-icon{
-    border-radius: 4px;
-    float: left;
-    margin-right: 5px;
-    max-height: 24px;
-    max-width: 24px;
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #0079d3;
 }
