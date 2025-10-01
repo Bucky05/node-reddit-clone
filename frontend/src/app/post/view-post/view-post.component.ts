@@ -30,12 +30,6 @@ export class ViewPostComponent implements OnInit {
       text : '',
       postId : this.postId
     }
-    this.postService.getPost(this.postId).subscribe(data => {
-      this.post = data;
-    }, error => {
-      this.toastr.error(error);
-      throwError(error);
-    });
   }
 
   ngOnInit(): void {

@@ -12,7 +12,6 @@ const pool = require('../db/connection')
 const {createUser,getUserFromToken,addToken,enableUser , deleteToken} = require('../db/queries')
 const refreshToken = require('./RefreshTokenService')
 class AuthService {
-    currentUser = ""
     async signup(registerRequest) {
         try {
         const user = new User()
@@ -40,33 +39,21 @@ class AuthService {
         pool.query(enableUser,user[0].email),
         pool.query(deleteToken,user[0].email)
     ])
-    this.currentUser = user[0].username
     return 'User Activated'
     }
     async getLoginToken(loginForm) {
-        const token = jwt.sign({"username" : loginForm.username ,
-        "password" : loginForm.password},secret,{"expiresIn":expiresIn+"s"})
-        this.currentUser = loginForm.username
+        const token = jwt.sign({"username" : loginForm.username },secret,{"expiresIn":expiresIn})
         const rt = await refreshToken.generateRefreshToken()
 
         return {"authenticationToken":token,
                 "refreshToken":rt.token,
                 "expiresAt" : futureTime(expiresIn),
-                "username" : this.currentUser}
-    }
-    getCurrentUser() {
-        if(this.currentUser === '')
-            throw 'Please Login First'
-        return this.currentUser
-    }
-    setCurrentUser(username) {
-        this.currentUser = username
+                "username" : loginForm.username}
     }
     async validateRefreshToken(req) {
         try {
         await refreshToken.validateRefreshToken(req.refreshToken)
         const token = generateTokenWithUserName(req.username)
-        this.currentUser = req.username
         return {"authenticationToken":token,
         "refreshToken":req.refreshToken,
         "expiresAt" : futureTime(expiresIn),

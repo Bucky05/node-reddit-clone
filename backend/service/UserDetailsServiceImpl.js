@@ -8,15 +8,8 @@ class userDetailsServiceImpl {
             const res = await pool.query(getUserByUsername,user.username)
             if(res.length === 0) 
                 return "Username doesn't exist"
-            if(!user.password || res[0].password === user.password) {
-                if(res[0].enabled === 0 ) {
-                    return "Please verify account"
-                }
-                authService.setCurrentUser(user.username)
-                return true
-            }
                 
-            return "Password Invalid"
+            return true
 
         }
         catch(err) {

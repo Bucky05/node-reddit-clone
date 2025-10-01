@@ -15,10 +15,11 @@ export class PostTileComponent implements OnInit {
   faComments = faComments;
 
   constructor(private postService: PostService , private router : Router) {
-    console.log(this.posts)
+   
   }
 
   ngOnInit(): void {
+     console.log(this.posts)
   }
 
   goToPost(id : string) {

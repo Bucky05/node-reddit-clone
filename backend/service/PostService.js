@@ -5,7 +5,7 @@ const {getSubredditByName,savePost,getPostsByUsername, getPostsBySubreddit} = re
 const authService = require('./AuthService')
 const time = require('./time')
 module.exports = {
-save: async (postRequest ) => {
+createPost: async (postRequest ) => {
     try {
         const subreddit = await pool.query(getSubredditByName,postRequest.subreddit_name)
         if(subreddit.length == 0) {
@@ -17,7 +17,6 @@ save: async (postRequest ) => {
         const mysqlFormattedDateTime = time.currentTime()
 
         postRequest["post_id"] = uuidv4().toString()
-        postRequest["username"] = authService.getCurrentUser()
         postRequest["subreddit_id"] = subreddit[0]["subreddit_id"]
         postRequest["created_date"] = mysqlFormattedDateTime;
         delete postRequest["subreddit_name"]
@@ -31,11 +30,12 @@ save: async (postRequest ) => {
 },
 getPost : async (postId) => {
     try{
-    const post = await pool.query(getPostById,postId)
+    let post = await pool.query(getPostById,postId)
     if(post.length == 0)
         throw ''
-    post[0]["duration"] = time.calculateTimeAgo(post[0].created_date)
-    delete post[0]["created_date"]
+    post = post[0]
+    post["duration"] = time.calculateTimeAgo(post.created_date)
+    delete post["created_date"]
     return post
     }
     catch(err) {

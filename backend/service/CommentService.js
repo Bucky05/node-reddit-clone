@@ -19,10 +19,9 @@ module.exports = {
             comment.post_id = comment.postId
             delete comment.postId
             comment.comment_id = uuidv4().toString()
-            comment.username = authService.getCurrentUser()
             comment.created_date = mysqlFormattedDateTime
             await pool.query(saveComment,comment)
-            await pool.query(updateCommentid,[post[0].comment_count+1,comment.post_id])
+            await pool.query(updateCommentid,[post.comment_count+1,comment.post_id])
             const user = await pool.query(getEmailFromPost,comment.post_id)
             mailService.sendMail(new NotificationEmail(user[0].email, comment.username +" Commented on your post ", comment.username + " posted a comment on your post. "+ user[0].url))
             return comment

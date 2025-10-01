@@ -19,8 +19,7 @@ export class PostService {
     return this.http.post('http://localhost:3500/api/posts', postPayload)
   }
   getPost(postId : string) : Observable<any> {
-    const params = new HttpParams().set('postId', postId);
-    return this.http.get<PostModel>('http://localhost:3500/api/posts/' , {params})
+    return this.http.get<PostModel>(`http://localhost:3500/api/posts/${postId}`)
   }
 
   getAllPostsByUser(name : string) : Observable<PostModel[]> {

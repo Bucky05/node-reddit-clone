@@ -11,7 +11,7 @@ import { UserProfileComponent } from './auth/user-profile/user-profile.component
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  {path : 'sign-up', component : SignupComponent},
+  {path : 'signup', component : SignupComponent},
   {path : 'login' , component : LoginComponent},
   {path : '' , component : HomeComponent},
   {path : 'create-post' , component : CreatePostComponent , canActivate : [AuthGuard]},

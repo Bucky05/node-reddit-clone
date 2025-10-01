@@ -5,19 +5,23 @@ const app = express()
 const authRouter = require('../routes/auth')
 const postRouter = require('../routes/post')
 const subredditRouter = require('../routes/subreddit')
+const commentRouter = require('../routes/comment')
+const authenticateToken = require('../middleware/JwtAuthenticationFilter')
 // security middlewares
 const helmet = require('helmet')
 const rateLimit = require('express-rate-limit')
-
+const voteRouter = require('../routes/vote')
 app.use(express.json())
 app.use(helmet())
 app.use(cors())
 app.use(rateLimit({ windowMs: 60_000, max: 100 }))
 
 app.use('/api/auth', authRouter)
+app.use('/api',authenticateToken)
 app.use('/api/posts', postRouter)
 app.use('/api/subreddit', subredditRouter)
-
+app.use('/api/comments',commentRouter)
+app.use('/api/vote', voteRouter)
 // error handler
 const errorHandler = require('../middleware/errorHandler')
 app.use(errorHandler)

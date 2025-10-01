@@ -18,10 +18,9 @@ const validateSignup = [
 ]
 
 // Use validation before controller
-router.use('/signup',validateSignup)
-router.post('/signup', AuthController.signup)
+router.post('/signup', validateSignup, AuthController.signup)
 router.post('/login', AuthController.login)
-router.post('/refresh/token', AuthController.refreshToken)
+router.post('/refresh/token', AuthController.validateRefreshToken)
 router.post('/logout', AuthController.logout)
-
+router.get("/accountVerification", AuthController.verifyAccount);
 module.exports = router

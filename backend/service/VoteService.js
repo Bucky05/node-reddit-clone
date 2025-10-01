@@ -6,13 +6,12 @@ const authservice = require('./AuthService')
 module.exports = {
     vote : async function (voteDto) {
         try {
-        const currentUser = authservice.getCurrentUser()
         const post = await pool.query(getPostById,voteDto.entryId)
         if(post.length == 0) {
             throw 'Post not found with ID '+voteDto.entryId
         }
         let voteCount = post[0].vote_count
-        const lastVote = await pool.query(getLastVoteOnPostByUser,[currentUser,voteDto.entryId])
+        const lastVote = await pool.query(getLastVoteOnPostByUser,[voteDto.username,voteDto.entryId])
 
         if(voteDto.voteType === 0) {
             voteCount++;
@@ -29,12 +28,12 @@ module.exports = {
             }
             else {
                 //remove last vote if last vote is different than current vote
-                await pool.query(deleteVote,[currentUser,voteDto.entryId])
+                await pool.query(deleteVote,[voteDto.username,voteDto.entryId])
             }
 
         }
         else 
-            await pool.query(saveVote,{"entry_id":voteDto.entryId,"username":currentUser,"vote_type":voteDto.voteType})
+            await pool.query(saveVote,{"entry_id":voteDto.entryId,"username":voteDto.username,"vote_type":voteDto.voteType})
         
         await pool.query(updateVoteCount,[voteCount,voteDto.entryId])
         return true
