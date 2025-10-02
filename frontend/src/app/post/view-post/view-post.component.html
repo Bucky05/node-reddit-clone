@@ -50,7 +50,7 @@
     <h5 class="mb-3">{{ comments.length }} Comments</h5>
     <div *ngFor="let comment of comments" class="comment-item">
       <div class="comment-header">
-        <a routerLink="/user/{{ comment.username }}" class="comment-username">
+        <a routerLink="/user-profile/{{ comment.username }}" class="comment-username">
           {{ comment.username }}
         </a>
         <span class="comment-time">• {{ comment.duration }}</span>
