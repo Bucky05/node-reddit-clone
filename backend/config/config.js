@@ -16,5 +16,9 @@ module.exports = {
     protocol: 'SMTP'
   },
   secret: process.env.JWT_SECRET,
-  expiresIn: process.env.JWT_EXPIRES_IN || 9000
+  expiresIn: process.env.JWT_EXPIRES_IN || 9000,
+  ai : {
+    aiKey : process.env.AI_KEY,
+    prompt : process.env.AI_Prompt
+  }
 }
