@@ -6,6 +6,7 @@ import { PostService } from 'src/app/shared/post.service';
 import { SubredditService } from 'src/app/subreddit/subreddit.service';
 import { CreatePostPayload } from './create-post.payload';
 import { throwError } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-create-post',
@@ -17,7 +18,6 @@ export class CreatePostComponent implements OnInit {
   createPostForm: FormGroup;
   postPayload: CreatePostPayload;
   subreddits: Array<SubredditModel>;
-
   constructor(private router: Router, private postService: PostService,
     private subredditService: SubredditService) {
     this.postPayload = {
@@ -34,6 +34,7 @@ export class CreatePostComponent implements OnInit {
       subreddit_name: new FormControl('', Validators.required),
       url: new FormControl(''),
       description: new FormControl('', Validators.required),
+      customPrompt: new FormControl('')
     });
     this.subredditService.getAllSubreddits().subscribe((data) => {
       this.subreddits = data;
@@ -58,5 +59,24 @@ export class CreatePostComponent implements OnInit {
   discardPost() {
     this.router.navigateByUrl('/');
   }
+
+
+async applyAi(prompt: string) {
+  if (!prompt || !this.createPostForm.get('description').value) {
+    return;
+  }
+
+  const content = this.createPostForm.get('description').value;
+
+  // Call your AI API
+  this.postService.getAIResponse(content,prompt).subscribe((data) => {
+  if(data.enhanced) {
+    this.createPostForm.patchValue({ description: data.enhanced });
+  }
+},error => {
+      console.log(error)
+})
+}
+
 
 }

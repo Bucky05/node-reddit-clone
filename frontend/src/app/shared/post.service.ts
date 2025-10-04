@@ -25,5 +25,11 @@ export class PostService {
   getAllPostsByUser(name : string) : Observable<PostModel[]> {
     return this.http.get<PostModel[]>('http://localhost:3500/api/posts/by-user/'+name)
   }
+
+  getAIResponse(content,prompt) : Observable<any> {
+    const body = { content, prompt }
+    return this.http.post<{ enhanced?: string }>('http://127.0.0.1:3500/api/ai/enhance', body)
+  }
+
  
 }

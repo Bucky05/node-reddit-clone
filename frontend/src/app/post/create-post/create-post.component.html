@@ -59,13 +59,44 @@
           </div>
 
           <!-- Buttons -->
-          <div class="d-flex justify-content-end gap-2 mt-3">
-            <button type="button" (click)="discardPost()" class="btnDiscard">
-              Discard
-            </button>
-            <button type="submit" class="btnCreatePost" [disabled]="!createPostForm.valid">Post</button>
-            {{createPostForm.valid}}
-          </div>
+          <!-- Buttons -->
+<!-- Buttons -->
+<div class="d-flex flex-column mt-3">
+  <!-- AI options row -->
+  <div class="ai-options mb-2">
+    <button type="button" class="ai-btn" (click)="applyAi('Fix grammar and spelling')">
+      ✨ Fix Spelling & Grammar
+    </button>
+    <button type="button" class="ai-btn" (click)="applyAi('Make this shorter and post ready')">
+      ✨ Make Shorter & Post Ready
+    </button>
+
+    <!-- Custom prompt -->
+    <input
+      type="text"
+      class="ai-input"
+      formControlName="customPrompt"
+      placeholder="Enter custom prompt..."
+    />
+    <button type="button" class="ai-btn" (click)="applyAi(createPostForm.get('customPrompt')?.value)">Apply</button>
+  </div>
+
+  <!-- Action buttons -->
+  <div class="d-flex justify-content-end gap-2">
+    <button type="button" (click)="discardPost()" class="btnDiscard">
+      Discard
+    </button>
+    <button
+      type="submit"
+      class="btnCreatePost"
+      [disabled]="!createPostForm.valid"
+    >
+      Post
+    </button>
+  </div>
+</div>
+
+
         </form>
       </div>
     </div>
