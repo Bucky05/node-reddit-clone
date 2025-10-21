@@ -39,3 +39,6 @@
 .post-text{
     margin-top: 10px;
 }
+a {
+  text-decoration: none;
+}

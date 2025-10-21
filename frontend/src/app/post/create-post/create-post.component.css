@@ -108,3 +108,21 @@
   border-color: #8a2be2;
   box-shadow: 0 0 6px rgba(138, 43, 226, 0.3);
 }
+
+.input-text {
+  display: block;
+  width: 100%;
+}
+
+.input-text:focus{
+  border-color: #0079d3;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 121, 211, 0.3);
+}
+textarea.form-control.input-text {
+  overflow-y: auto;
+  resize: none; /* Optional: Prevent manual resizing */
+  max-height: 300px;
+  line-height: 1.5;
+  field-sizing: content;
+}

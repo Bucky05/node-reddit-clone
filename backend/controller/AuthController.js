@@ -1,8 +1,4 @@
-const express = require("express");
-const { body, validationResult } = require("express-validator");
-const router = express.Router();
 const authService = require("../service/AuthService");
-const configureCreds = require("../config/securityConfig");
 const refreshTokenService = require("../service/RefreshTokenService");
 
 module.exports = {
@@ -23,6 +19,7 @@ module.exports = {
 
   login: async function (req, res, next) {
     try {
+      await authService.verifyUser(req.body)
       const token = await authService.getLoginToken(req.body);
       return res.status(200).json(token);
     } catch (err) {

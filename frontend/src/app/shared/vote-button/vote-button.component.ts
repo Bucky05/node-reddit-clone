@@ -56,11 +56,11 @@ export class VoteButtonComponent implements OnInit {
       this.updateVoteDetails()
     },
     error => {
-      this.toastr.error(error.error.text)
+      this.toastr.error(error.error.description)
       if(error.status == 403) {
         this.authService.logout()
       }
-      throw (error)
+      throw(error)
     })
   }
 

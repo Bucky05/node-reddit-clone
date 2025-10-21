@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
         this.toastr.error(data.toString())
       }
     },
-    (error : string) => {
-      this.toastr.error(error)
+    (error : Error    ) => {
+      this.toastr.error(error.message)
     })
   }
 

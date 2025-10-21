@@ -16,7 +16,7 @@ module.exports = {
     });
     const data = await response.json()
     let aiText = data.candidates?.[0]?.content?.parts?.[0]?.text || content;
-    aiText = aiText.slice(aiText.indexOf("<p>")+3,aiText.indexOf("</p>"))
+    aiText = aiText.slice(aiText.indexOf('[[[')+3, aiText.indexOf(']]]'))
     return aiText
     }
 }

@@ -39,23 +39,12 @@
 
           <!-- Description editor -->
           <div class="form-group mb-3">
-            <editor
-              apiKey="qxbsmpgq9tu43eieotg0ehgcwmar1rb9fio00hzr5h0g75ar"
+            <textarea #descriptionTextarea
+              class="form-control input-text"
               formControlName="description"
-              [init]="{
-                height: 300,
-                menubar: false,
-                plugins: [
-                  'advlist autolink lists link image charmap preview anchor',
-                  'searchreplace visualblocks code fullscreen',
-                  'insertdatetime media table paste code help wordcount'
-                ],
-                toolbar:
-                  'undo redo | formatselect | bold italic backcolor | \
-                  alignleft aligncenter alignright alignjustify | \
-                  bullist numlist outdent indent | removeformat | help'
-              }"
-            ></editor>
+              placeholder="Post Body"
+               (input)="autoResizeTextarea($event)"
+            ></textarea>
           </div>
 
           <!-- Buttons -->

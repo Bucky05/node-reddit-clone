@@ -15,7 +15,7 @@ async function authenticateToken(req, res, next) {
 
     const token = getJwtFromRequest(req);
     if (!token) {
-      return res.status(401).json({ message: 'Missing token' });
+      return res.status(401).json({ message: 'Missing token', description :'Session has expired. Please Login' });
     }
 
     // Verify token
